@@ -1,0 +1,5 @@
+{
+  sourceEmail: '',
+  destEmail: '',
+  sourceEmailPassword: ''
+}

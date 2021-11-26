@@ -1,12 +1,16 @@
 const fs = require('fs');
 const https = require('https');
 const nodemailer = require('nodemailer');
+const config = require('./config.js')
 /********** NODEMAILER SETUP **********/
 const transporter = nodeMailer.createTransport({
-  service: 'gmail',
+  service: config.sourceEmail.substring(
+      config.sourceEmail.indexOf('@'),
+      config.sourceEmail.indexOf('.', config.sourceEmail.indexOf('@'))
+    ),
   auth: {
-    user: '',
-    pass: ''
+    user: config.sourceEmail,
+    pass: config.sourceEmailPassword
   }
 });
 
@@ -106,7 +110,7 @@ function compareJobs(newJobs) {
             !title.includes('STAFF') &&
             !title.includes('SR.') &&
             !title.includes('MANAGER')) {
-          sendJobEmail(job, jobId);
+          sendJobEmail(job, jobId).catch(err => console.log(err));
         }
       });
 
@@ -116,19 +120,24 @@ function compareJobs(newJobs) {
 }
 
 function sendJobEmail(job, id) {
-  let emailBody = 'Link to position: https://www.riotgames.com/en/j/' + id + '\n';
-  Object.entries(job).forEach(([fieldName, value]) => {
-    emailBody += fieldName + ': ' + value + '\n';
+  return new Promise(function(accept, reject) {
+    let emailBody = 'Link to position: https://www.riotgames.com/en/j/' + id + '\n';
+    Object.entries(job).forEach(([fieldName, value]) => {
+      emailBody += fieldName + ': ' + value + '\n';
+    });
+
+    const mailOptions = {
+      from: config.sourceEmail,
+      to: config.destEmail,
+      subject: 'NEW ' + DESIRED_TITLE + ' JOB AT RIOT',
+      text: emailBody
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) return reject(error);
+      return accept();
+    });
   });
-
-  const mailOptions = {
-    from: '',
-    to: '',
-    subject: 'NEW ' + DESIRED_TITLE + ' JOB AT RIOT',
-    text: emailBody
-  };
-
-
 }
 
 function saveJobs(jobs) {
