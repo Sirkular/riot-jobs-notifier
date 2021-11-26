@@ -5,7 +5,7 @@ const nodeSchedule = require('node-schedule');
 const config = require('./config.js');
 
 /********** SCHEDULER **********/
-const job = schedule.scheduleJob('0 * *', scrapeAndNotify);
+const job = nodeSchedule.scheduleJob('0 0 * * *', scrapeAndNotify);
 
 /********** NODEMAILER SETUP **********/
 const transporter = nodeMailer.createTransport({
@@ -36,6 +36,8 @@ const HTTP_OPTIONS = {
 };
 
 /********** CODE **********/
+while (true);
+
 function scrapeAndNotify() {
   getJobsHtml()
     .then(processJobsHtml)
