@@ -1,7 +1,11 @@
 const fs = require('fs');
 const https = require('https');
 const nodeMailer = require('nodemailer');
-const config = require('./config.js')
+const nodeSchedule = require('node-schedule');
+const config = require('./config.js');
+
+/********** SCHEDULER **********/
+const job = schedule.scheduleJob('0 * *', scrapeAndNotify);
 
 /********** NODEMAILER SETUP **********/
 const transporter = nodeMailer.createTransport({
@@ -32,11 +36,13 @@ const HTTP_OPTIONS = {
 };
 
 /********** CODE **********/
-getJobsHtml()
-  .then(processJobsHtml)
-  .then(compareJobs)
-  .then(saveJobs)
-  .catch(error => console.log(error));
+function scrapeAndNotify() {
+  getJobsHtml()
+    .then(processJobsHtml)
+    .then(compareJobs)
+    .then(saveJobs)
+    .catch(error => console.log(error));
+}
 
 function getJobsHtml() {
   return new Promise(function(accept, reject) {

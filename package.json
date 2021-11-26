@@ -4,6 +4,7 @@
   "description": "Scrape jobs from the Riot Games career page and get email notifications",
   "main": "index.js",
   "dependencies": {
+    "node-schedule": "^2.0.0",
     "nodemailer": "^6.7.2"
   },
   "devDependencies": {},
