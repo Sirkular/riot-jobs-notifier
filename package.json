@@ -1,0 +1,23 @@
+{
+  "name": "riot-jobs-notifier",
+  "version": "1.0.0",
+  "description": "Scrape jobs from the Riot Games career page and get email notifications",
+  "main": "index.js",
+  "dependencies": {
+    "nodemailer": "^6.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sirkular/riot-jobs-notifier.git"
+  },
+  "author": "Sirkular",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sirkular/riot-jobs-notifier/issues"
+  },
+  "homepage": "https://github.com/Sirkular/riot-jobs-notifier#readme"
+}
