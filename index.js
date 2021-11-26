@@ -1,7 +1,8 @@
 const fs = require('fs');
 const https = require('https');
-const nodemailer = require('nodemailer');
+const nodeMailer = require('nodemailer');
 const config = require('./config.js')
+
 /********** NODEMAILER SETUP **********/
 const transporter = nodeMailer.createTransport({
   service: config.sourceEmail.substring(
