@@ -36,7 +36,8 @@ const HTTP_OPTIONS = {
 };
 
 /********** CODE **********/
-while (true);
+// Stay alive
+setInterval(() => {}, 1 << 30);
 
 function scrapeAndNotify() {
   getJobsHtml()
